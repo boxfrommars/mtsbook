@@ -29,7 +29,10 @@ $app = new \Book\BookApplication(array(
 
 $app->register(new \Book\BookServiceProvider(), array());
 
-$app->get('/', function() use ($app) {
+$app->get('/', function(\Symfony\Component\HttpFoundation\Request $request) use ($app) {
+
+    $app->log(print_r($request->headers, true));
+    $app->log('---------------');
     return $app['twig']->render('layout.twig', array(
         'content' => 'index page',
         'books' => $app['book.service']->fetchAll(),

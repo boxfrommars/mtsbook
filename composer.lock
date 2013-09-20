@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "7307f097603cec05b7dacc215b526db8",
+    "hash": "926a3f90eb6cd0bb6cce3a2d4646baaf",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -475,6 +475,49 @@
                 "parser"
             ],
             "time": "2013-03-07 12:15:25"
+        },
+        {
+            "name": "donatj/phpuseragentparser",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/donatj/PhpUserAgent.git",
+                "reference": "0de0a63407b96869bad5fac60f90e41aad459058"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/donatj/PhpUserAgent/zipball/0de0a63407b96869bad5fac60f90e41aad459058",
+                "reference": "0de0a63407b96869bad5fac60f90e41aad459058",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "Source/UserAgentParser.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jesse G. Donat",
+                    "email": "donatj@gmail.com",
+                    "homepage": "http://donatstudios.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Simple user agent string parser",
+            "homepage": "http://donatstudios.com/PHP-Parser-HTTP_USER_AGENT",
+            "keywords": [
+                "parser",
+                "user agent"
+            ],
+            "time": "2013-08-05 21:28:58"
         },
         {
             "name": "endroid/qrcode",
@@ -1070,12 +1113,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "fe1ff7b07f0199d17645dd2cb566613464da88c8"
+                "reference": "caf6a3ade31ddd81b9f2ddc7018d8cdc9818a853"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/fe1ff7b07f0199d17645dd2cb566613464da88c8",
-                "reference": "fe1ff7b07f0199d17645dd2cb566613464da88c8",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/caf6a3ade31ddd81b9f2ddc7018d8cdc9818a853",
+                "reference": "caf6a3ade31ddd81b9f2ddc7018d8cdc9818a853",
                 "shasum": ""
             },
             "require": {
@@ -1132,7 +1175,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-19 10:55:38"
+            "time": "2013-09-19 16:16:36"
         },
         {
             "name": "symfony/icu",

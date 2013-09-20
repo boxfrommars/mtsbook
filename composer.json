@@ -11,7 +11,8 @@
         "symfony/translation": "~2.3",
         "symfony/locale": "~2.3",
         "symfony/security": "~2.3",
-	    "endroid/qrcode": "1.*@dev"
+	    "endroid/qrcode": "1.*@dev",
+        "donatj/phpuseragentparser": "*"
     },
     "minimum-stability": "dev",
     "autoload": {
