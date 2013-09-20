@@ -131,13 +131,13 @@ $app->post('/upload/file', function(\Symfony\Component\HttpFoundation\Request $r
 
     return $app->json($response);
 });
+
 $app->get('/login', function(\Symfony\Component\HttpFoundation\Request $request) use ($app) {
     return $app['twig']->render('admin/login.twig', array(
         'error'         => $app['security.last_error']($request),
         'last_username' => $app['session']->get('_security.last_username'),
     ));
 });
-
 
 $app['logtime']('before run');
 $app->run();
