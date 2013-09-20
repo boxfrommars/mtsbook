@@ -9,6 +9,7 @@
 namespace Book;
 
 
+use Endroid\QrCode\QrCode;
 use Whale\System;
 
 class BookEntity

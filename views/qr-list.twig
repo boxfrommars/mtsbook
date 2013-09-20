@@ -22,11 +22,6 @@
             font-size: 1em;
             font-style: italic;
         }
-        .download-link {
-            padding: 5px;
-            background: #ccc;
-            text-decoration: none;
-        }
         body {
             background: #ddd;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -34,7 +29,6 @@
         }
         #wrap {
             background: #fff;
-            width: 300px;
             margin: 0 auto;
             padding: 10px;
         }
@@ -52,13 +46,12 @@
 
 <body>
 <div id="wrap">
-    {% for book in books %}
+    {% for qr in qrs %}
         <div class="book">
-            <h1><a href="/book/{{ book.getId }}">{{ book.getTitle }}</a></h1>
-            <h2>{{ book.getAuthor }}</h2>
-            <p>{{ book.getContent }}</p>
-            {% if book.getFileFb2 %}<a class="download-link" href="/download/{{ book.getId }}/fb2">скачать fb2</a>{% endif %}
-            {% if book.getFileEpub %}<a class="download-link" href="/download/{{ book.getId }}/epub">скачать epub</a>{% endif %}
+            <p><img src="/files/{{ qr.filename }}"></p>
+            <h1><a href="/book/{{ qr.book.getId }}">{{ qr.book.getTitle }}</a></h1>
+            <h2>{{ qr.book.getAuthor }}</h2>
+            <p>{{ qr.book.getContent }}</p>
         </div>
     {% endfor %}
 </div>

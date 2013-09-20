@@ -1,4 +1,5 @@
 DROP TABLE "book" CASCADE;
+DROP TABLE "download" CASCADE;
 
 CREATE TABLE "book" (
   "id" BIGSERIAL NOT NULL,
@@ -16,6 +17,22 @@ CREATE TABLE "book" (
   "updated_at" TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NOW(),
 
   PRIMARY KEY("id")
+);
+/*
+ 'platform' => '[Detected Platform]',
+    'browser'  => '[Detected Browser]',
+    'version' */
+
+CREATE TABLE "download" (
+  "id" BIGSERIAL NOT NULL,
+  "id_book" BIGINT REFERENCES book (id) ON DELETE CASCADE,
+  "format" VARCHAR (255),
+
+  "platform" VARCHAR (255),
+  "browser" VARCHAR (255),
+  "version" VARCHAR (255),
+
+  PRIMARY KEY ("id")
 );
 
 INSERT INTO book (author, title, content) VALUES ('Гилберт Кит Честертон', 'Жив-человек', 'Некий чудак Инносент появляется в тихом пансионе "Маяк" и переворачивает всю его жизнь. "Жив человек" Честертона: история о тождестве радости и праведности.');

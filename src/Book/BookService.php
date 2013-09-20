@@ -53,6 +53,10 @@ class BookService {
     }
 
 
+    /**
+     * @param $id
+     * @return BookEntity|bool
+     */
     public function fetch($id) {
         $qb = $this->getQuery();
         $qb->add('where', 'b.id = :id');
