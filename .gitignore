@@ -1,0 +1,9 @@
+/.settings
+/.buildpath
+/.project
+/nbproject
+/tests/coverage
+/tests/reports
+/tmp
+/vendor/
+/.idea

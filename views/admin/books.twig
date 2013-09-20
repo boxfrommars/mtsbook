@@ -1,0 +1,30 @@
+<h2>Книги</h2>
+<a href="/admin/book/create" class="btn btn-info"><i class="icon-plus icon-white"></i> Добавить книгу</a>
+<table class="table table-hover table-striped">
+    <thead>
+    <tr>
+        <th></th>
+        <th>#</th>
+        <th>Автор</th>
+        <th>Название</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for book in books %}
+        <tr>
+            <td style="width: 20px;">
+                {% if book.getIsPublished %}
+                    <i class="icon-ok"></i>
+                {% endif %}
+            </td>
+            <td>{{ book.getId }}</td>
+            <td>{{ book.getAuthor }}</td>
+            <td>{{ book.getTitle }}</td>
+            <td style="width: 40px;"><a href="/admin/book/edit/{{ book.getId }}" class="icon-edit pull-right"></a></td>
+            <td style="width: 40px;"><a href="" class="icon-trash pull-right"></a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

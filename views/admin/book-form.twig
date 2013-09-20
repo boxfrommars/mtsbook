@@ -1,0 +1,44 @@
+<form name="form" method="post" action="" class="form-horizontal" id="book-form" novalidate="novalidate">
+    {{ form_start(form) }}
+    {{ form_rest(form) }}
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Отправить</button>
+        <button type="reset" class="btn btn-secondary">Отмена</button>
+    </div>
+    {{ form_end(form) }}
+</form>
+
+<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+<script src="/vendor/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
+<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+<script src="/vendor/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
+<!-- The basic File Upload plugin -->
+<script src="/vendor/jQuery-File-Upload/js/jquery.fileupload.js"></script>
+
+<script>
+    $(function () {
+        var $bookForm = $('#book-form');
+        $bookForm.find('.file').each(function(key, fileField){
+            var $field = $(fileField);
+            var $input = $('<input>').attr('type', 'file').addClass('pseudo-file').attr('name', 'book_file[x-files]');
+            $field.after($input);
+            if ($field.hasClass('file-image') && $field.val()) {
+                $field.after($('<img>').attr('src', '/files/' + $field.val()).addClass('admin-image'));
+            }
+
+            $input.fileupload({
+                url: '/upload/file',
+                dataType: 'json',
+                done: function (e, data) {
+                    if (data.result.success) {
+                        $field.val(data.result.name);
+                        if ($field.hasClass('file-image')) {
+                            $field.after($('<img>').attr('src', '/files/' + data.result.name).addClass('admin-image'));
+                        }
+                    }
+                }
+            });
+
+        });
+    });
+</script>
