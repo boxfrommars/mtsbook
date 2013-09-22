@@ -94,6 +94,10 @@ class BookService {
         $this->getDb()->update($this->getName(), $data, array('id' => $book->getId()), $types);
     }
 
+    public function delete($id) {
+        $this->getDb()->delete($this->getName(), array('id' => $id));
+    }
+
     /**
      * @param BookEntity $book
      */

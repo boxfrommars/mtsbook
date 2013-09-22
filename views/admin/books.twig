@@ -23,7 +23,7 @@
             <td>{{ book.getAuthor }}</td>
             <td>{{ book.getTitle }}</td>
             <td style="width: 40px;"><a href="/admin/book/edit/{{ book.getId }}" class="icon-edit pull-right"></a></td>
-            <td style="width: 40px;"><a href="" class="icon-trash pull-right"></a></td>
+            <td style="width: 40px;"><a href="/admin/book/delete/{{ book.getId }}" class="icon-trash pull-right"></a></td>
         </tr>
     {% endfor %}
     </tbody>

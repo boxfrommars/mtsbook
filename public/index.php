@@ -79,7 +79,7 @@ $app->get('/admin', function () use ($app) {
         'content' => $app['twig']->render('admin/books.twig', array('books' => $app['book.service']->fetchAll())),
         'flash' => $flashBag->all(),
     ));
-});
+})->bind('admin');
 
 $app->match('/admin/book/edit/{id}', function (\Symfony\Component\HttpFoundation\Request $request, $id) use ($app) {
     /** @var \Symfony\Component\HttpFoundation\Session\Flash\FlashBag $flashBag */
@@ -127,6 +127,23 @@ $app->match('/admin/book/create', function (\Symfony\Component\HttpFoundation\Re
         'flash' => $flashBag->all(),
     ));
 })->bind('admin_book_create');
+
+$app->get('/admin/book/delete/{id}', function(\Symfony\Component\HttpFoundation\Request $request, $id) use ($app) { // заменить на пост
+    /** @var \Symfony\Component\HttpFoundation\Session\Flash\FlashBag $flashBag */
+    $flashBag = $app['session']->getFlashBag();
+    /** @var \Book\BookEntity $book */
+    $book = $app['book.service']->fetch($id);
+
+    if (!$book) {
+        $flashBag->add('error', 'вы пытаетесь удалить несуществующую запись');
+        return $app->redirect($app->url('admin'));
+    }
+
+    $app['book.service']->delete($book->getId());
+    $flashBag->add('success', 'Запись ' . $book->getTitle() . ' удалена');
+    return $app->redirect($app->url('admin'));
+
+});
 
 $app->post('/upload/file', function (\Symfony\Component\HttpFoundation\Request $request) use ($app) {
 
