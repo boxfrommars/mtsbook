@@ -43,21 +43,37 @@ class BookForm extends AbstractType {
                 'label' => 'Обложка',
                 'attr' => array(
                     'class' => 'file file-image',
-//                    'disabled' => 'disabled',
+                    'readonly' => 'readonly',
                 ),
             ))
             ->add('file_fb2', 'text', array(
                 'label' => 'fb2',
                 'attr' => array(
                     'class' => 'file',
-//                    'disabled' => 'disabled',
+                    'data-file-type' => 'fb2',
+                    'readonly' => 'readonly',
+                ),
+            ))
+            ->add('size_fb2', 'text', array(
+                'label' => 'Размер fb2',
+                'attr' => array(
+                    'data-size-of' => 'fb2',
+                    'readonly' => 'readonly',
                 ),
             ))
             ->add('file_epub', 'text', array(
                 'label' => 'epub',
                 'attr' => array(
                     'class' => 'file',
-//                    'disabled' => 'disabled',
+                    'data-file-type' => 'epub',
+                    'readonly' => 'readonly',
+                ),
+            ))
+            ->add('size_epub', 'text', array(
+                'label' => 'Размер epub',
+                'attr' => array(
+                    'data-size-of' => 'epub',
+                    'readonly' => 'readonly',
                 ),
             ))
             ->add('content', 'textarea', array(

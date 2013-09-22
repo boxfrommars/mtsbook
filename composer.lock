@@ -1235,20 +1235,21 @@
         },
         {
             "name": "symfony/icu",
-            "version": "1.0.x-dev",
+            "version": "1.2.x-dev",
             "target-dir": "Symfony/Component/Icu",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Icu.git",
-                "reference": "0b790dfb98904df2bcd44b2e14a69b1ccd679ef7"
+                "reference": "45c8d35427304b1e14a13a03426055f501ba5f61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Icu/zipball/0b790dfb98904df2bcd44b2e14a69b1ccd679ef7",
-                "reference": "0b790dfb98904df2bcd44b2e14a69b1ccd679ef7",
+                "url": "https://api.github.com/repos/symfony/Icu/zipball/45c8d35427304b1e14a13a03426055f501ba5f61",
+                "reference": "45c8d35427304b1e14a13a03426055f501ba5f61",
                 "shasum": ""
             },
             "require": {
+                "lib-icu": ">=4.4",
                 "php": ">=5.3.3",
                 "symfony/intl": "~2.3"
             },
@@ -1278,7 +1279,7 @@
                 "icu",
                 "intl"
             ],
-            "time": "2013-08-06 12:58:06"
+            "time": "2013-08-06 12:55:36"
         },
         {
             "name": "symfony/intl",
@@ -1581,12 +1582,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Security.git",
-                "reference": "7d4474c7f13d27987e6404b9e77a99394336b5b3"
+                "reference": "c52bf28025ce247a0650b005a1ca3eec84d24e22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Security/zipball/7d4474c7f13d27987e6404b9e77a99394336b5b3",
-                "reference": "7d4474c7f13d27987e6404b9e77a99394336b5b3",
+                "url": "https://api.github.com/repos/symfony/Security/zipball/c52bf28025ce247a0650b005a1ca3eec84d24e22",
+                "reference": "c52bf28025ce247a0650b005a1ca3eec84d24e22",
                 "shasum": ""
             },
             "require": {
@@ -1646,7 +1647,7 @@
             ],
             "description": "Symfony Security Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-19 11:00:34"
+            "time": "2013-09-21 18:20:49"
         },
         {
             "name": "symfony/translation",
@@ -1839,12 +1840,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "00ecabf1b00fc9b045560788de26e27b0ca4e9c1"
+                "reference": "d827c601e3afea6535fede5e39c9f91c12fc2e66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/00ecabf1b00fc9b045560788de26e27b0ca4e9c1",
-                "reference": "00ecabf1b00fc9b045560788de26e27b0ca4e9c1",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/d827c601e3afea6535fede5e39c9f91c12fc2e66",
+                "reference": "d827c601e3afea6535fede5e39c9f91c12fc2e66",
                 "shasum": ""
             },
             "require": {
@@ -1880,7 +1881,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-09-19 11:52:25"
+            "time": "2013-09-20 20:40:25"
         }
     ],
     "packages-dev": [

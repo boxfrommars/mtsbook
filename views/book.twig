@@ -1,0 +1,21 @@
+    <div class="book">
+        <h1>{{ book.getTitle }}</h1>
+        <h2>{{ book.getAuthor }}</h2>
+        <p>{{ book.getContent }}</p>
+        {% if book.getFileFb2 %}
+            <a class="download-link" href="/download/{{ book.getId }}/fb2">
+                скачать fb2
+                {% if book.getSizeFb2 %}
+                    ({{ book.getSizeFb2//1024 }}Kb)
+                {% endif %}
+            </a><br />
+        {% endif %}
+        {% if book.getFileEpub %}
+            <a class="download-link" href="/download/{{ book.getId }}/epub">
+                скачать epub
+                {% if book.getSizeEpub %}
+                    ({{ book.getSizeEpub//1024 }}Kb)
+                {% endif %}
+            </a>
+        {% endif %}
+    </div>

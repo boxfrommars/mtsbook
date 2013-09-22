@@ -36,6 +36,8 @@
                         $field.val(data.result.name);
                         if ($field.hasClass('file-image')) {
                             $field.after($('<img>').attr('src', '/files/' + data.result.name).addClass('admin-image'));
+                        } else {
+                            $('[data-size-of="' + $field.attr('data-file-type') + '"]').val(data.result.size);
                         }
                     }
                 }

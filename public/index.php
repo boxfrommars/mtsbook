@@ -13,7 +13,6 @@ $app = new \Book\BookApplication(array(
     'files_path' => realpath(__DIR__ . '/../public/files'),
     'is_cache' => false,
     'application_path' => realpath(__DIR__ . '/..'),
-    'sitehost' => 'http://mtsbook.ru',
     'config' => array(
         'db' => array(
             'db.options' => array(
@@ -29,21 +28,29 @@ $app = new \Book\BookApplication(array(
 
 $app->register(new \Book\BookServiceProvider(), array());
 
-$app->get('/', function () use ($app) {
+$app->get('/', function (\Symfony\Component\HttpFoundation\Request $request) use ($app) {
+
+    $app->log($request->server->get('SERVER_NAME'));
+
     return $app['twig']->render('layout.twig', array(
-        'content' => 'index page',
-        'books' => $app['book.service']->fetchAll(),
+        'content' => $app['twig']->render('books.twig', array('books' => $app['book.service']->fetchAll())),
     ));
 });
 
-$app->get('/qr-list', function () use ($app) {
+$app->get('/book/{id}', function ($id) use ($app) {
+    return $app['twig']->render('layout.twig', array(
+        'content' => $app['twig']->render('book.twig', array('book' => $app['book.service']->fetch($id))),
+    ));
+});
+
+$app->get('/qr-list', function (\Symfony\Component\HttpFoundation\Request $request) use ($app) {
 
     $books = $app['book.service']->fetchAll();
     $qrs = array();
 
     foreach ($books as $book) {
 
-        $link = $app['sitehost'] . '/book/' . $book->getId();
+        $link = 'http://' . $request->server->get('SERVER_NAME') . '/book/' . $book->getId();
 
         $qrCode = new \Endroid\QrCode\QrCode();
         $qrCode->setText($link);
@@ -61,13 +68,6 @@ $app->get('/qr-list', function () use ($app) {
     return $app['twig']->render('qr-list.twig', array(
         'content' => 'index page',
         'qrs' => $qrs,
-    ));
-});
-
-$app->get('/book/{id}', function ($id) use ($app) {
-    return $app['twig']->render('layout.twig', array(
-        'content' => 'index page',
-        'books' => array($app['book.service']->fetch($id)),
     ));
 });
 

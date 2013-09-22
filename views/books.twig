@@ -1,0 +1,20 @@
+{% for book in books %}
+    <div class="book groupfix">
+        <div class="book-info">
+            <h1><a href="/book/{{ book.getId }}">{{ book.getTitle }}</a></h1>
+            <h2>{{ book.getAuthor }}</h2>
+        </div>
+        <div class="book-links">
+            {% if book.getFileFb2 %}
+                <a class="download-link" href="/download/{{ book.getId }}/fb2" {% if book.getSizeFb2 %}title="{{ book.getSizeFb2//1024 }}Kb"{% endif %}>
+                    скачать fb2
+                </a>
+            {% endif %}
+            {% if book.getFileEpub %}
+                <a class="download-link" href="/download/{{ book.getId }}/epub" {% if book.getSizeEpub %}title="{{ book.getSizeEpub//1024 }}Kb"{% endif %}>
+                    скачать epub
+                </a>
+            {% endif %}
+        </div>
+    </div>
+{% endfor %}

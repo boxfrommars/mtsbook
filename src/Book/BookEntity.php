@@ -8,7 +8,6 @@
 
 namespace Book;
 
-
 use Endroid\QrCode\QrCode;
 use Whale\System;
 
@@ -31,7 +30,8 @@ class BookEntity
     protected $_createdAt;
     /** @var string */
     protected $_updatedAt;
-
+    protected $_sizeFb2;
+    protected $_sizeEpub;
     protected $_dbFields = array(
         'title',
         'author',
@@ -40,6 +40,16 @@ class BookEntity
         array(
             'name' => 'is_published',
             'type' => \PDO::PARAM_BOOL
+        ),
+
+        array(
+            'name' => 'size_fb2',
+            'type' => \PDO::PARAM_INT,
+        ),
+
+        array(
+            'name' => 'size_epub',
+            'type' => \PDO::PARAM_INT,
         ),
 
         'file_fb2',
@@ -58,8 +68,40 @@ class BookEntity
         }
     }
 
+    /**
+     * @return mixed
+     */
+    public function getSizeEpub()
+    {
+        return $this->_sizeEpub;
+    }
 
-    public function raw(){
+    /**
+     * @param mixed $sizeEpub
+     */
+    public function setSizeEpub($sizeEpub)
+    {
+        $this->_sizeEpub = $sizeEpub;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSizeFb2()
+    {
+        return $this->_sizeFb2;
+    }
+
+    /**
+     * @param mixed $sizeFb2
+     */
+    public function setSizeFb2($sizeFb2)
+    {
+        $this->_sizeFb2 = $sizeFb2;
+    }
+
+    public function raw()
+    {
         $raw = array();
         foreach ($this->getDbFields() as $field) {
             if (!is_array($field)) {
@@ -76,16 +118,8 @@ class BookEntity
                 'type' => $field['type']
             );
         }
+
         return $raw;
-    }
-
-
-    /**
-     * @param array $dbFields
-     */
-    public function setDbFields($dbFields)
-    {
-        $this->_dbFields = $dbFields;
     }
 
     /**
@@ -94,6 +128,14 @@ class BookEntity
     public function getDbFields()
     {
         return $this->_dbFields;
+    }
+
+    /**
+     * @param array $dbFields
+     */
+    public function setDbFields($dbFields)
+    {
+        $this->_dbFields = $dbFields;
     }
 
     /**
