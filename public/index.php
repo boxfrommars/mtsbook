@@ -172,10 +172,10 @@ $app->get('/admin/stats', function () use ($app) {
     /** @var \Symfony\Component\HttpFoundation\Session\Flash\FlashBag $flashBag */
     $flashBag = $app['session']->getFlashBag();
 
-    $bookStats = $app['db']->fetchAll('SELECT count(*) AS cnt, b.title, b.author FROM download AS d LEFT JOIN book AS b ON b.id = d.id_book GROUP BY b.author, b.title');
-    $platformStats = $app['db']->fetchAll('SELECT count(*) AS cnt, d.platform FROM download AS d GROUP BY d.platform');
-    $browserStats = $app['db']->fetchAll('SELECT count(*) AS cnt, d.browser FROM download AS d GROUP BY d.browser');
-    $formatStats = $app['db']->fetchAll('SELECT count(*) AS cnt, d.format FROM download AS d GROUP BY d.format');
+    $bookStats = $app['db']->fetchAll('SELECT count(*) AS cnt, b.title, b.author FROM download AS d LEFT JOIN book AS b ON b.id = d.id_book GROUP BY b.author, b.title ORDER BY cnt DESC');
+    $platformStats = $app['db']->fetchAll('SELECT count(*) AS cnt, d.platform FROM download AS d GROUP BY d.platform ORDER BY cnt DESC');
+    $browserStats = $app['db']->fetchAll('SELECT count(*) AS cnt, d.browser FROM download AS d GROUP BY d.browser ORDER BY cnt DESC');
+    $formatStats = $app['db']->fetchAll('SELECT count(*) AS cnt, d.format FROM download AS d GROUP BY d.format ORDER BY cnt DESC');
     return $app['twig']->render('admin/layout.twig', array(
         'content' => $app['twig']->render('admin/stats.twig', array(
             'books' => $bookStats,
