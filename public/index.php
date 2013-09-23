@@ -175,11 +175,13 @@ $app->get('/admin/stats', function () use ($app) {
     $bookStats = $app['db']->fetchAll('SELECT count(*) AS cnt, b.title, b.author FROM download AS d LEFT JOIN book AS b ON b.id = d.id_book GROUP BY b.author, b.title');
     $platformStats = $app['db']->fetchAll('SELECT count(*) AS cnt, d.platform FROM download AS d GROUP BY d.platform');
     $browserStats = $app['db']->fetchAll('SELECT count(*) AS cnt, d.browser FROM download AS d GROUP BY d.browser');
+    $formatStats = $app['db']->fetchAll('SELECT count(*) AS cnt, d.format FROM download AS d GROUP BY d.format');
     return $app['twig']->render('admin/layout.twig', array(
         'content' => $app['twig']->render('admin/stats.twig', array(
             'books' => $bookStats,
             'platforms' => $platformStats,
             'browsers' => $browserStats,
+            'formats' => $formatStats,
         )),
         'flash' => $flashBag->all(),
     ));
