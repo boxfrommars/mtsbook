@@ -25,8 +25,8 @@
             <td>{{ book.getAuthor }}</td>
             <td>{{ book.getTitle }}</td>
 
-            <td style="width: 40px;">{% if book.getSizeFb2 == 0 %}{% else %} <i class="icon-ok"></i> {% endif %}</td>
-            <td style="width: 40px;">{% if book.getSizeEpub == 0 %}{% else %} <i class="icon-ok"></i> {% endif %}</td>
+            <td style="width: 40px;">{{ book.getSizeFb2 }}b</td>
+            <td style="width: 40px;">{{ book.getSizeEpub }}b</td>
             <td style="width: 40px;"><a href="/admin/book/edit/{{ book.getId }}" class="icon-edit pull-right"></a></td>
             <td style="width: 40px;"><a href="/admin/book/delete/{{ book.getId }}" class="icon-trash pull-right"></a></td>
         </tr>
