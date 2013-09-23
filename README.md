@@ -2,8 +2,7 @@ http://yugmts.ru/
 
 installation
 ------------
-
-    on production change password in deploy/sql/0-db.sql and in public/index.php lines 16 and 24
+on production change password in deploy/sql/0-db.sql and in public/index.php lines 16 and 24
 
     xu@telemachus:~$ git clone https://github.com/boxfrommars/mtsbook.git
     xu@telemachus:~$ cd mtsbook
