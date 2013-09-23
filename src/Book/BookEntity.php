@@ -15,8 +15,10 @@ class BookEntity
 {
     /** @var int */
     protected $_id;
-    /** @var string */
+    
+    /** @var string Title */
     protected $_title;
+    
     /** @var string */
     protected $_author;
     /** @var string */
