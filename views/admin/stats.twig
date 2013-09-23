@@ -1,0 +1,53 @@
+<h2>Скачивания по книгам:</h2>
+<table class="table table-hover table-striped" style="width: 750px;">
+    <thead>
+    <tr>
+        <th>Автор</th>
+        <th>Название</th>
+        <th style="width: 50px;">Скачиваний</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for book in books %}
+        <tr>
+            <td>{{ book.author }}</td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.cnt }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<h2>Скачивания по платформам:</h2>
+<table class="table table-hover table-striped" style="width: 500px;">
+    <thead>
+    <tr>
+        <th>Платформа</th>
+        <th style="width: 50px;">Скачиваний</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for platform in platforms %}
+        <tr>
+            <td>{{ platform.platform }}</td>
+            <td>{{ platform.cnt }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<h2>Скачивания по браузерам:</h2>
+<table class="table table-hover table-striped" style="width: 500px;">
+    <thead>
+    <tr>
+        <th>браузер</th>
+        <th style="width: 50px;">Скачиваний</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for browser in browsers %}
+        <tr>
+            <td>{{ browser.browser }}</td>
+            <td>{{ browser.cnt }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

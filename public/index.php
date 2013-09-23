@@ -29,9 +29,6 @@ $app = new \Book\BookApplication(array(
 $app->register(new \Book\BookServiceProvider(), array());
 
 $app->get('/', function (\Symfony\Component\HttpFoundation\Request $request) use ($app) {
-
-    $app->log($request->server->get('SERVER_NAME'));
-
     return $app['twig']->render('layout.twig', array(
         'content' => $app['twig']->render('books.twig', array('books' => $app['book.service']->fetchAll())),
     ));
@@ -43,20 +40,33 @@ $app->get('/book/{id}', function ($id) use ($app) {
     ));
 });
 
-$app->get('/qr-list', function (\Symfony\Component\HttpFoundation\Request $request) use ($app) {
+$app->get('/download/{id}/{format}', function ($id, $format) use ($app) {
+    /** @var \Book\BookEntity $book */
+    $book = $app['book.service']->fetch($id);
+    if (!$book) throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
+    $filename = ($format == 'fb2') ? $book->getFileFb2() : $book->getFileEpub();
 
+    $info = array_merge(parse_user_agent(), array('id_book' => $book->getId(), 'format' => $format));
+
+    $app['db']->insert('download', $info);
+
+    return $app->sendFile($app['files_path'] . '/' . $filename)->setContentDisposition(
+        \Symfony\Component\HttpFoundation\ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+        URLify::filter($book->getAuthor() . '_' . $book->getTitle(), 60, "", true) . '.' . $format
+    );
+})->assert('format', 'fb2|epub');
+
+$app->get('/qr-list', function (\Symfony\Component\HttpFoundation\Request $request) use ($app) {
     $books = $app['book.service']->fetchAll();
     $qrs = array();
 
     foreach ($books as $book) {
-
         $link = 'http://' . $request->server->get('SERVER_NAME') . '/book/' . $book->getId();
 
         $qrCode = new \Endroid\QrCode\QrCode();
         $qrCode->setText($link);
         $qrCode->setSize(300);
         $qrCode->setPadding(10);
-
         $qrCode->render($app['files_path'] . '/qr-' . $book->getId() . '.png');
 
         $qrs[] = array(
@@ -65,9 +75,13 @@ $app->get('/qr-list', function (\Symfony\Component\HttpFoundation\Request $reque
         );
     }
 
-    return $app['twig']->render('qr-list.twig', array(
-        'content' => 'index page',
-        'qrs' => $qrs,
+    return $app['twig']->render('qr-list.twig', array('qrs' => $qrs));
+});
+
+$app->get('/login', function (\Symfony\Component\HttpFoundation\Request $request) use ($app) {
+    return $app['twig']->render('admin/login.twig', array(
+        'error' => $app['security.last_error']($request),
+        'last_username' => $app['session']->get('_security.last_username'),
     ));
 });
 
@@ -81,12 +95,11 @@ $app->get('/admin', function () use ($app) {
     ));
 })->bind('admin');
 
-$app->match('/admin/book/edit/{id}', function (\Symfony\Component\HttpFoundation\Request $request, $id) use ($app) {
+$processBook = function (\Symfony\Component\HttpFoundation\Request $request, $method, $id) use ($app) {
     /** @var \Symfony\Component\HttpFoundation\Session\Flash\FlashBag $flashBag */
     $flashBag = $app['session']->getFlashBag();
-    $book = $app['book.service']->fetch($id);
-
-    if (!$book) return $app->redirect($app->url('admin_book_create'));
+    /** @var \Book\BookEntity $book */
+    $book = ($id !== null) ? $app['book.service']->fetch($id) : new \Book\BookEntity();
 
     /** @var \Symfony\Component\Form\FormBuilder $formBuilder */
     $formBuilder = $app['form.factory']->createBuilder(new \Book\BookForm(), $book);
@@ -96,39 +109,19 @@ $app->match('/admin/book/edit/{id}', function (\Symfony\Component\HttpFoundation
     if ($form->isValid()) {
         $app['book.service']->save($book);
         $flashBag->add('success', 'запись изменена');
-        return $app->redirect($app->url('admin_book_edit', array('id' => $id)));
+
+        return $app->redirect($app->url('admin_book_edit', array('id' => $book->getId(), 'method' => 'edit')));
     }
 
     return $app['twig']->render('admin/layout.twig', array(
         'content' => $app['twig']->render('admin/book-form.twig', array('form' => $form->createView(), 'book' => $book)),
         'flash' => $flashBag->all(),
     ));
-})->bind('admin_book_edit');
+};
 
-$app->match('/admin/book/create', function (\Symfony\Component\HttpFoundation\Request $request) use ($app) {
-    /** @var \Symfony\Component\HttpFoundation\Session\Flash\FlashBag $flashBag */
-    $flashBag = $app['session']->getFlashBag();
+$app->match('/admin/book/{method}/{id}', $processBook)->value('id', null)->assert('method', 'edit|create')->bind('admin_book_edit');
 
-    $book = new \Book\BookEntity();
-
-    /** @var \Symfony\Component\Form\FormBuilder $formBuilder */
-    $formBuilder = $app['form.factory']->createBuilder(new \Book\BookForm(), $book);
-    $form = $formBuilder->getForm();
-    $form->handleRequest($request);
-
-    if ($form->isValid()) {
-        $app['book.service']->save($book);
-        $flashBag->add('success', 'запись изменена');
-        return $app->redirect($app->url('admin_book_edit', array('id' => $book->getId())));
-    }
-
-    return $app['twig']->render('admin/layout.twig', array(
-        'content' => $app['twig']->render('admin/book-form.twig', array('form' => $form->createView(), 'book' => $book)),
-        'flash' => $flashBag->all(),
-    ));
-})->bind('admin_book_create');
-
-$app->get('/admin/book/delete/{id}', function(\Symfony\Component\HttpFoundation\Request $request, $id) use ($app) { // заменить на пост
+$app->get('/admin/book/delete/{id}', function (\Symfony\Component\HttpFoundation\Request $request, $id) use ($app) { // заменить на пост
     /** @var \Symfony\Component\HttpFoundation\Session\Flash\FlashBag $flashBag */
     $flashBag = $app['session']->getFlashBag();
     /** @var \Book\BookEntity $book */
@@ -136,16 +129,17 @@ $app->get('/admin/book/delete/{id}', function(\Symfony\Component\HttpFoundation\
 
     if (!$book) {
         $flashBag->add('error', 'вы пытаетесь удалить несуществующую запись');
+
         return $app->redirect($app->url('admin'));
     }
 
     $app['book.service']->delete($book->getId());
     $flashBag->add('success', 'Запись ' . $book->getTitle() . ' удалена');
+
     return $app->redirect($app->url('admin'));
+})->bind('admin_book_delete');
 
-});
-
-$app->post('/upload/file', function (\Symfony\Component\HttpFoundation\Request $request) use ($app) {
+$app->post('/admin/upload/file', function (\Symfony\Component\HttpFoundation\Request $request) use ($app) {
 
     /** @var \Symfony\Component\Form\FormBuilder $formBuilder */
     $formBuilder = $app['form.factory']->createBuilder(new \Book\BookFileForm(), array());
@@ -174,37 +168,22 @@ $app->post('/upload/file', function (\Symfony\Component\HttpFoundation\Request $
     return $app->json($response);
 });
 
-$app->get('/login', function (\Symfony\Component\HttpFoundation\Request $request) use ($app) {
-    return $app['twig']->render('admin/login.twig', array(
-        'error' => $app['security.last_error']($request),
-        'last_username' => $app['session']->get('_security.last_username'),
+$app->get('/admin/stats', function () use ($app) {
+    /** @var \Symfony\Component\HttpFoundation\Session\Flash\FlashBag $flashBag */
+    $flashBag = $app['session']->getFlashBag();
+
+    $bookStats = $app['db']->fetchAll('SELECT count(*) AS cnt, b.title, b.author FROM download AS d LEFT JOIN book AS b ON b.id = d.id_book GROUP BY b.author, b.title');
+    $platformStats = $app['db']->fetchAll('SELECT count(*) AS cnt, d.platform FROM download AS d GROUP BY d.platform');
+    $browserStats = $app['db']->fetchAll('SELECT count(*) AS cnt, d.browser FROM download AS d GROUP BY d.browser');
+    return $app['twig']->render('admin/layout.twig', array(
+        'content' => $app['twig']->render('admin/stats.twig', array(
+            'books' => $bookStats,
+            'platforms' => $platformStats,
+            'browsers' => $browserStats,
+        )),
+        'flash' => $flashBag->all(),
     ));
 });
 
-
-$app->get('/download/{id}/{format}', function ($id, $format) use ($app) {
-    if (!in_array($format, array('fb2', 'epub'))) throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
-
-    /** @var \Book\BookEntity $book */
-    $book = $app['book.service']->fetch($id);
-    if (!$book) throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
-    $filename = ($format == 'fb2') ? $book->getFileFb2() : $book->getFileEpub();
-
-    $filePath = $app['files_path'] . '/' . $filename;
-
-
-    $info = parse_user_agent();
-    $info['id_book'] = $book->getId();
-    $info['format'] = $format;
-
-    $app['db']->insert('download', $info);
-    return $app->sendFile($filePath)
-        ->setContentDisposition(
-            \Symfony\Component\HttpFoundation\ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            URLify::filter($book->getAuthor() . '_' . $book->getTitle(), 60, "", true) . '.' . $format
-        );
-});
-
-$app['logtime']('before run');
 $app->run();
 $app['logtime']("last codeline\n");

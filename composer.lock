@@ -1288,12 +1288,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Intl.git",
-                "reference": "fd6f53f8c1a4b4a5aeaf6c44fe93abed97103ba9"
+                "reference": "42c75fb0110f89a481813b219b924b6f32f839f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Intl/zipball/fd6f53f8c1a4b4a5aeaf6c44fe93abed97103ba9",
-                "reference": "fd6f53f8c1a4b4a5aeaf6c44fe93abed97103ba9",
+                "url": "https://api.github.com/repos/symfony/Intl/zipball/42c75fb0110f89a481813b219b924b6f32f839f7",
+                "reference": "42c75fb0110f89a481813b219b924b6f32f839f7",
                 "shasum": ""
             },
             "require": {
@@ -1356,7 +1356,7 @@
                 "l10n",
                 "localization"
             ],
-            "time": "2013-09-12 12:59:51"
+            "time": "2013-09-22 18:04:51"
         },
         {
             "name": "symfony/locale",
@@ -1582,12 +1582,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Security.git",
-                "reference": "c52bf28025ce247a0650b005a1ca3eec84d24e22"
+                "reference": "38c5dd30d7545490836456062abf49c213b972cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Security/zipball/c52bf28025ce247a0650b005a1ca3eec84d24e22",
-                "reference": "c52bf28025ce247a0650b005a1ca3eec84d24e22",
+                "url": "https://api.github.com/repos/symfony/Security/zipball/38c5dd30d7545490836456062abf49c213b972cb",
+                "reference": "38c5dd30d7545490836456062abf49c213b972cb",
                 "shasum": ""
             },
             "require": {
@@ -1647,7 +1647,7 @@
             ],
             "description": "Symfony Security Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-21 18:20:49"
+            "time": "2013-09-22 18:04:51"
         },
         {
             "name": "symfony/translation",

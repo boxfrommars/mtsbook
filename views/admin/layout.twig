@@ -61,8 +61,14 @@
     <link rel="shortcut icon" href="/favicon.ico" />
     <script src="/vendor/jquery/jquery-1.9.1.js"></script>
     <script src="/vendor/bootstrap/js/bootstrap.js"></script>
+    <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+    <script src="/vendor/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
+    <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+    <script src="/vendor/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
+    <!-- The basic File Upload plugin -->
+    <script src="/vendor/jQuery-File-Upload/js/jquery.fileupload.js"></script>
 
-    <script src="/js/script.js"></script>
+    <script src="/js/admin.js"></script>
 </head>
 
 <body>
@@ -81,7 +87,7 @@
                     <ul class="nav">
                         <li><a href="/admin">Каталог</a></li>
                         <li><a href="/admin/settings">Настройки</a></li>
-                        <li><a href="/admin/settings">Статистика</a></li>
+                        <li><a href="/admin/stats">Статистика</a></li>
                     </ul>
                     <ul class="nav pull-right">
                         <li><a href="/">Сайт</a></li>

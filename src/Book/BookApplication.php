@@ -73,35 +73,13 @@ class BookApplication extends Application {
                 ),
             ),
         ));
-//        $this->log($this['security.encoder.digest']->encodePassword('myparis', ''));
-        $this->before(
-            function () {
-                $this['logtime']('before controller');
-            }
-        );
+//        $this->log($this['security.encoder.digest']->encodePassword('password', 'salt'));
+        $this->before(function () {
+            $this['logtime']('before controller');
+        });
 
-        $this->after(
-            function () {
-                $this['logtime']('after controller');
-            }
-        );
-    }
-
-    /**
-     * @param \Closure|object $callable
-     * @return callable
-     */
-    public static function share($callable)
-    {
-        return parent::share($callable);
-    }
-
-    /**
-     * @param \Closure|object $callable
-     * @return callable
-     */
-    public static function protect($callable)
-    {
-        return parent::protect($callable);
+        $this->after(function () {
+            $this['logtime']('after controller');
+        });
     }
 } 
