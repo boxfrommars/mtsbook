@@ -56,7 +56,7 @@ $app->get('/download/{id}/{format}', function ($id, $format) use ($app) {
     );
 })->assert('format', 'fb2|epub');
 
-$app->get('/qr-list', function (\Symfony\Component\HttpFoundation\Request $request) use ($app) {
+$app->get('/admin/qr-list', function (\Symfony\Component\HttpFoundation\Request $request) use ($app) {
     $books = $app['book.service']->fetchAll();
     $qrs = array();
 
