@@ -3,25 +3,30 @@
 <table class="table table-hover table-striped">
     <thead>
     <tr>
-        <th></th>
-        <th>#</th>
+        {#<th></th>#}
+        {#<th>#</th>#}
         <th>Автор</th>
         <th>Название</th>
         <th></th>
         <th></th>
+        <th>fb2</th>
+        <th>epub</th>
     </tr>
     </thead>
     <tbody>
     {% for book in books %}
         <tr>
-            <td style="width: 20px;">
-                {% if book.getIsPublished %}
-                    <i class="icon-ok"></i>
-                {% endif %}
-            </td>
-            <td>{{ book.getId }}</td>
+            {#<td style="width: 20px;">#}
+                {#{% if book.getIsPublished %}#}
+                    {#<i class="icon-ok"></i>#}
+                {#{% endif %}#}
+            {#</td>#}
+            {#<td>{{ book.getId }}</td>#}
             <td>{{ book.getAuthor }}</td>
             <td>{{ book.getTitle }}</td>
+
+            <td style="width: 40px;">{% if book.getSizeFb2 = 0 %}{% else %} <i class="icon-ok"></i> {% endif %}</td>
+            <td style="width: 40px;">{% if book.getSizeEpub = 0 %}{% else %} <i class="icon-ok"></i> {% endif %}</td>
             <td style="width: 40px;"><a href="/admin/book/edit/{{ book.getId }}" class="icon-edit pull-right"></a></td>
             <td style="width: 40px;"><a href="/admin/book/delete/{{ book.getId }}" class="icon-trash pull-right"></a></td>
         </tr>
