@@ -67,7 +67,7 @@ class BookApplication extends Application {
                     'pattern' => '^/admin',
                     'form' => array('login_path' => '/login', 'check_path' => '/admin/login_check'),
                     'users' => array(
-                        'admin' => array('ROLE_ADMIN', 'n5dbgtys7x4dzzAJUW/VFukdSr3YytbMW40ex+ycDz1BkRDpW+X58XPYqquwyTOBufkR4vd88A7laKADpFac7A=='),
+                        'admin' => array('ROLE_ADMIN', $this['admin_pwd']),
                     ),
                     'logout' => array('logout_path' => '/admin/logout'),
                 ),

@@ -13,6 +13,7 @@ $app = new \Book\BookApplication(array(
     'files_path' => realpath(__DIR__ . '/../public/files'),
     'is_cache' => false,
     'application_path' => realpath(__DIR__ . '/..'),
+    'admin_pwd' => 'n5dbgtys7x4dzzAJUW/VFukdSr3YytbMW40ex+ycDz1BkRDpW+X58XPYqquwyTOBufkR4vd88A7laKADpFac7A==',
     'config' => array(
         'db' => array(
             'db.options' => array(

@@ -10,9 +10,7 @@ mkdir $DIR/../tmp/cache/doctrine
 
 chmod a+rw $DIR/../tmp -R
 
-sudo rm -rf $DIR/../public/files
-mkdir $DIR/../public/files
-
+# or add writable to www-data only
 chmod a+rw $DIR/../public/files -R
 
 
