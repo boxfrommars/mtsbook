@@ -3,7 +3,7 @@
         <h2>{{ book.getAuthor }}</h2>
         <p>{{ book.getContent }}</p>
         {% if book.getFileFb2 %}
-            <a class="download-link" href="/download/{{ book.getFileFb2 }}">
+            <a class="download-link" href="/files/{{ book.getFileFb2 }}">
                 скачать fb2
                 {% if book.getSizeFb2 %}
                     ({{ book.getSizeFb2//1024 }}Kb)
