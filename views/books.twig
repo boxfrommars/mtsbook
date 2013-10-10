@@ -6,12 +6,12 @@
         </div>
         <div class="book-links">
             {% if book.getFileFb2 %}
-                <a class="download-link" href="/download/{{ book.getId }}/fb2" {% if book.getSizeFb2 %}title="{{ book.getSizeFb2//1024 }}Kb"{% endif %}>
+                <a class="download-link" href="/download/{{ book.getFileFb2 }}" {% if book.getSizeFb2 %}title="{{ book.getSizeFb2//1024 }}Kb"{% endif %}>
                     скачать fb2
                 </a>
             {% endif %}
             {% if book.getFileEpub %}
-                <a class="download-link" href="/download/{{ book.getId }}/epub" {% if book.getSizeEpub %}title="{{ book.getSizeEpub//1024 }}Kb"{% endif %}>
+                <a class="download-link" href="/download/{{ book.getFileEpub }}" {% if book.getSizeEpub %}title="{{ book.getSizeEpub//1024 }}Kb"{% endif %}>
                     скачать epub
                 </a>
             {% endif %}
